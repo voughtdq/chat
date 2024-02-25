@@ -10,7 +10,7 @@ defmodule MyMutex do
     end
   
     def unlock(:locked) do
-      :ok
+      {:ok, :free}
     end
   
     def unlock(:free) do
