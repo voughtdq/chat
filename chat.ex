@@ -20,7 +20,7 @@ defmodule MyMutex do
   
   defmodule Chat do
   
-    defstruct users: [], messages: [], mutex: MyMutex
+    defstruct users: [], messages: [], mutex: :free
   
     def start_link() do
       {:ok, pid} = Task.start_link(fn -> action(%__MODULE__{}) end)
