@@ -44,9 +44,8 @@ defmodule MyMutex do
     end
   
     defp post_all_users(chat) do
-      Enum.each(chat.users, fn user ->
-        "User:"
-      end)
+      IO.puts("Users: ")
+      Enum.each(chat.users, fn user -> IO.puts(" - #{user}") end)
     end
   
     defp post_message_to_all(chat, message) do
@@ -57,7 +56,7 @@ defmodule MyMutex do
   
     defp new_user(chat ,user) do
       {:ok, mutex} = MyMutex.lock(chat.mutex)
-      updated_chat = %{ chat | users: chat.users ++ [user], mutex: mutex }
+      updated_chat = %{chat | users: chat.users ++ [user], mutex: mutex }
       IO.puts("Entering the chat: #{user}")
       {:ok, mutex} = MyMutex.unlock(mutex)
       updated_chat = %{updated_chat | mutex: mutex}
@@ -73,6 +72,5 @@ defmodule MyMutex do
       {:ok, mutex} = MyMutex.unlock(mutex)
       %{chat | mutex: mutex}
     end
-  
   end
   
