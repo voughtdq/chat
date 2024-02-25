@@ -80,3 +80,19 @@ defmodule MyMutex do
     end
   end
   
+
+defmodule Test do
+  def run do
+    users =  ["jim", "bob", "alice", "⒡⃸⭑⹏⿫⤜⑱"] 
+    {:ok, pid} = Chat.start_link()
+    for user <- users do
+      send(pid, {:join, user})
+    end
+    send(pid, {:users_chat})
+    
+    for user <- users do
+      send(pid, {:disconnect, user})
+      send(pid, {:users_chat})
+    end
+  end
+end
