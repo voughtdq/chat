@@ -59,7 +59,8 @@ defmodule MyMutex do
       {:ok, mutex} = MyMutex.lock(chat.mutex)
       updated_chat = %{ chat | users: chat.users ++ [user], mutex: mutex }
       IO.puts("Entering the chat: #{user}")
-      MyMutex.unlock(mutex)
+      {:ok, mutex} = MyMutex.unlock(mutex)
+      updated_chat = %{updated_chat | mutex: mutex}
       post_message_to_all(updated_chat, "#{user} has joined the chat.")
       updated_chat
     end
@@ -69,8 +70,8 @@ defmodule MyMutex do
       chat = %{chat | users: List.delete(chat.users, user),
               mutex: mutex}
       IO.puts("The user #{user} has leaved the chat")
-      MyMutex.lock(mutex)
-      chat
+      {:ok, mutex} = MyMutex.unlock(mutex)
+      %{chat | mutex: mutex}
     end
   
   end
