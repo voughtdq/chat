@@ -44,8 +44,14 @@ defmodule MyMutex do
     end
   
     defp post_all_users(chat) do
-      IO.puts("Users: ")
-      Enum.each(chat.users, fn user -> IO.puts(" - #{user}") end)
+      case chat.users do
+        [] -> IO.puts("No users online.")
+        users ->
+          IO.puts("Users: ")
+          Enum.each(users, fn user -> 
+            IO.puts(" - #{user}") 
+          end)
+      end
     end
   
     defp post_message_to_all(chat, message) do
