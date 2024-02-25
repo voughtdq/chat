@@ -28,8 +28,8 @@ defmodule MyMutex do
   
     defp action(chat) do
       receive do
-      {:join, :user} ->
-        chat = new_user(chat, :user)
+      {:join, user} ->
+        chat = new_user(chat, user)
         action(chat)
       #{:post, user} ->
       #  chat = post_message(chat, user)
